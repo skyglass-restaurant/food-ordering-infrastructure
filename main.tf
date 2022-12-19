@@ -1,17 +1,17 @@
-module "jenkins" {
-  source = "./module-jenkins"
+# module "jenkins" {
+#   source = "./module-jenkins"
 
-  region                 = var.aws_region
-  author                 = "skyglass"
-  environment            = var.environment
-  public_key             = "../../ssh-jenkins.pub"
-  hosted_zone_id         = "Z00391621ABLUKSLON5HM"
-  domain_name            = "greeta.net"
-  jenkins_username       = "admin"
-  jenkins_password       = "admin"
-  jenkins_credentials_id = "jenkins-slaves"
-  ssl_certificate_arn    = var.ssl_certificate_arn
-}
+#   region                 = var.aws_region
+#   author                 = "skyglass"
+#   environment            = var.environment
+#   public_key             = "../../ssh-jenkins.pub"
+#   hosted_zone_id         = "Z00391621ABLUKSLON5HM"
+#   domain_name            = "greeta.net"
+#   jenkins_username       = "admin"
+#   jenkins_password       = "admin"
+#   jenkins_credentials_id = "jenkins-slaves"
+#   ssl_certificate_arn    = var.ssl_certificate_arn
+# }
 
 module "eks" {
   source = "./module-eks"
@@ -20,6 +20,14 @@ module "eks" {
   author                 = "skyglass"
   cluster_name           = var.cluster_name
 }
+
+# module "kafka" {
+#   source                                           = "./module-kafka"
+
+#   environment                                      = var.environment
+#   cluster_id                                       = module.eks.cluster_id
+#   cluster_name                                     = module.eks.cluster_name
+# }
 
 module "ingress-nginx" {
   source                                           = "./module-ingress-nginx"

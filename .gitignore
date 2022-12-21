@@ -31,5 +31,7 @@ override.tf.json
 .vscode
 .terraform.lock.hcl
 terraform.auto.tfvars
+**/volumes/**
+**/kafka-client-storage/**
 --region
 LocationConstraint=eu-central-1

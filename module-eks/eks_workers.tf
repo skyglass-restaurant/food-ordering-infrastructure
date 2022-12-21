@@ -42,12 +42,12 @@ resource "aws_eks_node_group" "workers_node_group" {
   node_group_name = "${var.cluster_name}-workers-node-group"
   node_role_arn   = aws_iam_role.worker_role.arn
   subnet_ids      = [for subnet in aws_subnet.public_subnets : subnet.id]
-  instance_types = ["t3.medium"]
+  instance_types = ["t2.large"]
 
   scaling_config {
-    desired_size = 1
-    max_size     = 3
-    min_size     = 1
+    desired_size = 2
+    max_size     = 4
+    min_size     = 2
   }
 
   depends_on = [

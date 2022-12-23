@@ -60,15 +60,15 @@ resource "kubernetes_ingress_v1" "ingress" {
     }
 
     rule {
-      host = "todo.greeta.net"
+      host = "order.greeta.net"
       http {
 
         path {
           backend {
             service {
-              name = "todo"
+              name = "order-service"
               port {
-                number = 8080
+                number = 8181
               }
             }
           }
@@ -78,6 +78,66 @@ resource "kubernetes_ingress_v1" "ingress" {
         }
       }
     }
+
+    rule {
+      host = "payment.greeta.net"
+      http {
+
+        path {
+          backend {
+            service {
+              name = "payment-service"
+              port {
+                number = 8182
+              }
+            }
+          }
+
+          path = "/"
+          path_type = "Prefix"
+        }
+      }
+    } 
+
+    rule {
+      host = "restaurant.greeta.net"
+      http {
+
+        path {
+          backend {
+            service {
+              name = "restaurant-service"
+              port {
+                number = 8183
+              }
+            }
+          }
+
+          path = "/"
+          path_type = "Prefix"
+        }
+      }
+    }
+
+    rule {
+      host = "customer.greeta.net"
+      http {
+
+        path {
+          backend {
+            service {
+              name = "customer-service"
+              port {
+                number = 8184
+              }
+            }
+          }
+
+          path = "/"
+          path_type = "Prefix"
+        }
+      }
+    }                
 
   }
 }

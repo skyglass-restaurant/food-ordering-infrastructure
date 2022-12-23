@@ -26,3 +26,59 @@ resource "kubernetes_service_v1" "app2_service" {
     }
   }
 }
+
+resource "kubernetes_service_v1" "order_service" {
+  metadata {
+    name = "order-service"
+  }
+  spec {
+    selector = {
+      app = "order-deployment"
+    }
+    port {
+      port = 8181
+    }
+  }
+}
+
+resource "kubernetes_service_v1" "payment_service" {
+  metadata {
+    name = "payment-service"
+  }
+  spec {
+    selector = {
+      app = "payment-deployment"
+    }
+    port {
+      port = 8182
+    }
+  }
+}
+
+resource "kubernetes_service_v1" "restaurant_service" {
+  metadata {
+    name = "restaurant-service"
+  }
+  spec {
+    selector = {
+      app = "restaurant-deployment"
+    }
+    port {
+      port = 8183
+    }
+  }
+}
+
+resource "kubernetes_service_v1" "customer_service" {
+  metadata {
+    name = "customer-service"
+  }
+  spec {
+    selector = {
+      app = "customer-deployment"
+    }
+    port {
+      port = 8184
+    }
+  }
+}

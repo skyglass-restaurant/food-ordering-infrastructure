@@ -4,7 +4,7 @@ resource "kubernetes_ingress_v1" "ingress" {
     name = "simple-fanout-ingress"
     annotations = {
       "nginx.ingress.kubernetes.io/rewrite-target" = "/"
-      "kubernetes.io/ingress.class" =  "nginx"     
+      "kubernetes.io/ingress.class" =  "nginx"
     }
   }
 
@@ -13,60 +13,21 @@ resource "kubernetes_ingress_v1" "ingress" {
     default_backend {
      
       service {
-        name = "my-app1-service"
+        name = "order-api"
         port {
-          number = 5678
+          number = 8181
         }
       }
     }     
 
     rule {
-      host = "app1.greeta.net"
-      http {
-        path {
-          backend {
-            service {
-              name = "my-app1-service"
-              port {
-                number = 5678
-              }
-            }
-          }
-
-          path = "/app1"
-          path_type = "Prefix"
-        }
-      }
-    }
-
-    rule {
-      host = "app2.greeta.net"
+      host = "order-api.greeta.net"
       http {
 
         path {
           backend {
             service {
-              name = "my-app2-service"
-              port {
-                number = 5678
-              }
-            }
-          }
-
-          path = "/"
-          path_type = "Prefix"
-        }
-      }
-    }
-
-    rule {
-      host = "order.greeta.net"
-      http {
-
-        path {
-          backend {
-            service {
-              name = "order-service"
+              name = "order-api"
               port {
                 number = 8181
               }
@@ -80,13 +41,13 @@ resource "kubernetes_ingress_v1" "ingress" {
     }
 
     rule {
-      host = "payment.greeta.net"
+      host = "payment-api.greeta.net"
       http {
 
         path {
           backend {
             service {
-              name = "payment-service"
+              name = "payment-api"
               port {
                 number = 8182
               }
@@ -100,13 +61,13 @@ resource "kubernetes_ingress_v1" "ingress" {
     } 
 
     rule {
-      host = "restaurant.greeta.net"
+      host = "restaurant-api.greeta.net"
       http {
 
         path {
           backend {
             service {
-              name = "restaurant-service"
+              name = "restaurant-api"
               port {
                 number = 8183
               }
@@ -117,16 +78,16 @@ resource "kubernetes_ingress_v1" "ingress" {
           path_type = "Prefix"
         }
       }
-    }
+    }  
 
     rule {
-      host = "customer.greeta.net"
+      host = "customer-api.greeta.net"
       http {
 
         path {
           backend {
             service {
-              name = "customer-service"
+              name = "customer-api"
               port {
                 number = 8184
               }
@@ -137,7 +98,8 @@ resource "kubernetes_ingress_v1" "ingress" {
           path_type = "Prefix"
         }
       }
-    }                
+    }     
+
 
   }
 }

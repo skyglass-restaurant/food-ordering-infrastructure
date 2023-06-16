@@ -29,9 +29,10 @@ module "eks" {
 #   cluster_name                                     = module.eks.cluster_name
 # }
 
-module "ingress-nginx" {
-  source                                           = "./module-ingress-nginx"
+module "helm-addons" {
+  source                                           = "./module-helm-addons"
 
+  region                                           = var.aws_region
   environment                                      = var.environment
   domain_name                                      = "greeta.net"
   cluster_id                                       = module.eks.cluster_id

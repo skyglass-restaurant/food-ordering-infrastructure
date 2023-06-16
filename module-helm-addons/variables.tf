@@ -1,3 +1,7 @@
+variable "region" {
+  type = string
+  description = "AWS region"
+}
 
 variable "cluster_id" {
   description = "Name of the EKS cluster where the ingress nginx will be deployed"

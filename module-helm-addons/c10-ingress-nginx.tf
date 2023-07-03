@@ -21,7 +21,7 @@ resource "kubernetes_ingress_v1" "ingress" {
     }     
 
     rule {
-      host = "order-api.greeta.net"
+      host = "order.greeta.net"
       http {
 
         path {
@@ -41,7 +41,7 @@ resource "kubernetes_ingress_v1" "ingress" {
     }
 
     rule {
-      host = "payment-api.greeta.net"
+      host = "payment.greeta.net"
       http {
 
         path {
@@ -61,7 +61,7 @@ resource "kubernetes_ingress_v1" "ingress" {
     } 
 
     rule {
-      host = "restaurant-api.greeta.net"
+      host = "restaurant.greeta.net"
       http {
 
         path {
@@ -81,7 +81,7 @@ resource "kubernetes_ingress_v1" "ingress" {
     }  
 
     rule {
-      host = "customer-api.greeta.net"
+      host = "customer.greeta.net"
       http {
 
         path {

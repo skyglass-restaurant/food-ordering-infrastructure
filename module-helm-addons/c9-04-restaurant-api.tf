@@ -25,7 +25,7 @@ resource "kubernetes_deployment" "restaurant_api_deployment" {
       spec {
         container {
           name  = "restaurant-service"
-          image = "ghcr.io/skyglass-restaurant/restaurant-service:1.0-SNAPSHOT"
+          image = "ghcr.io/skyglass-restaurant/restaurant-service"
           image_pull_policy = "Always"
           port {
             container_port = 8183

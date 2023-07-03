@@ -1,4 +1,5 @@
 resource "kubernetes_pod_v1" "kafka_client_pod" {
+  depends_on = [helm_release.confluent_kafka]
   metadata {
     name      = "kafka-client"
     namespace = "default"

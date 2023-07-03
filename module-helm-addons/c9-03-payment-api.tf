@@ -25,7 +25,7 @@ resource "kubernetes_deployment" "payment_api_deployment" {
       spec {
         container {
           name  = "payment-service"
-          image = "ghcr.io/skyglass-restaurant/payment-service:1.0-SNAPSHOT"
+          image = "ghcr.io/skyglass-restaurant/payment-service"
           image_pull_policy = "Always"
           port {
             container_port = 8182

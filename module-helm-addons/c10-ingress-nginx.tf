@@ -98,7 +98,27 @@ resource "kubernetes_ingress_v1" "ingress" {
           path_type = "Prefix"
         }
       }
-    }     
+    }
+
+    rule {
+      host = "kafka.greeta.net"
+      http {
+
+        path {
+          backend {
+            service {
+              name = "kafka-ui"
+              port {
+                number = 8080
+              }
+            }
+          }
+
+          path = "/"
+          path_type = "Prefix"
+        }
+      }
+    }           
 
 
   }

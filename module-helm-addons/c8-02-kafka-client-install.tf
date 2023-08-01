@@ -1,5 +1,5 @@
 resource "kubernetes_pod_v1" "kafka_client_pod" {
-  depends_on = [helm_release.confluent_kafka]
+  depends_on = [helm_release.bitnami_kafka]
   metadata {
     name      = "kafka-client"
     namespace = "default"
@@ -26,14 +26,14 @@ resource "kubernetes_pod_v1" "kafka_client_pod" {
 
 resource "null_resource" "copy_script" {
   provisioner "local-exec" {
-    command = "kubectl cp ${path.module}/create-topics.sh ${kubernetes_pod_v1.kafka_client_pod.metadata.0.name}:/kafka-client-storage"
+    command = "aws eks --region ${var.region} update-kubeconfig --name ${var.cluster_name} && kubectl cp ${path.module}/create-topics.sh ${kubernetes_pod_v1.kafka_client_pod.metadata.0.name}:/kafka-client-storage"
   }
   depends_on = [kubernetes_pod_v1.kafka_client_pod]
 }
 
 resource "null_resource" "execute_script" {
   provisioner "local-exec" {
-    command = "kubectl exec -it ${kubernetes_pod_v1.kafka_client_pod.metadata.0.name} -- /bin/bash -c 'cd ../.. && cd kafka-client-storage && sh create-topics.sh confluent-kafka-cp-zookeeper-headless'"
+    command = "kubectl exec -it ${kubernetes_pod_v1.kafka_client_pod.metadata.0.name} -- /bin/bash -c 'cd ../.. && cd kafka-client-storage && sh create-topics.sh'"
   }
   depends_on = [null_resource.copy_script]
 }

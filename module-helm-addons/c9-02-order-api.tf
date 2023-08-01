@@ -1,4 +1,5 @@
-resource "kubernetes_deployment" "order_api_deployment" {
+resource "kubernetes_deployment_v1" "order_api_deployment" {
+  depends_on = [helm_release.bitnami_kafka_schema_registry, kubernetes_deployment_v1.food_ordering_postgres]
   metadata {
     name      = "order-api"
     namespace = "default"
@@ -43,21 +44,21 @@ resource "kubernetes_deployment" "order_api_deployment" {
 
           env {
             name  = "KAFKA-CONFIG_BOOTSTRAP-SERVERS"
-            value = "confluent-kafka-cp-kafka-headless:9092"
+            value = "bitnami-kafka:9092"
           }
 
           env {
             name  = "KAFKA-CONFIG_SCHEMA-REGISTRY-URL"
-            value = "http://confluent-kafka-cp-schema-registry:8081"
+            value = "http://schema-registry:8081"
           }
 
           resources {
-            limits {
+            limits = {
               cpu    = "500m"
               memory = "1024Mi"
             }
 
-            requests {
+            requests = {
               cpu    = "200m"
               memory = "256Mi"
             }

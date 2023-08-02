@@ -24,24 +24,7 @@ resource "kubernetes_deployment_v1" "food_ordering_postgres" {
       spec {
         container {
           name  = "food-ordering-postgres"
-          image = "debezium/example-postgres"
-
-          ports {
-            container_port = 5432
-          }
-
-          command = [
-            "postgres",
-            "-c",
-            "max_connections=200",
-            "-c",
-            "max_replication_slots=4",
-          ]
-
-          env {
-            name  = "POSTGRES_USER"
-            value = "postgres"
-          }
+          image = "postgres:14.4"
 
           env {
             name  = "POSTGRES_PASSWORD"
@@ -91,6 +74,6 @@ resource "kubernetes_horizontal_pod_autoscaler_v1" "food_ordering_postgres_hpa" 
       kind = "Deployment"
       name = kubernetes_deployment_v1.food_ordering_postgres.metadata[0].name 
     }
-    target_cpu_utilization_percentage = 80
+    target_cpu_utilization_percentage = 60
   }
 }

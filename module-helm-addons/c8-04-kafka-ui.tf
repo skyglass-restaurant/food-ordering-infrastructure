@@ -25,7 +25,7 @@ resource "kubernetes_deployment_v1" "kafka_ui" {
           name  = "kafka-ui"
           image = "provectuslabs/kafka-ui:latest"
           
-          ports {
+          port {
             container_port = 8080
           }
 
